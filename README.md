@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# A/B Testing Interview Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Context
 
-## Available Scripts
+You are designing a system to bucket users into two testing categories, v0 and v1, based on their UTM parameters. Your goal is to ensure that users are properly bucketed and see the correct number of menu buttons depending on their bucket.
 
-In the project directory, you can run:
+## Requirements:
 
-### `npm start`
+### Bucket Assignment Rules:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Users who visit the site with ‘google’ in their UTM parameters should be randomly assigned to either v0 or v1 with equal probability (50% chance for each).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Users with UTM parameters that do not contain ‘google’ should be bucketed into v1.
 
-### `npm test`
+- If any user has ‘shopping’ in their UTM parameters, bucket them into v0, regardless of whether or not they have ‘google’ in their params.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- If a user has neither ‘shopping’ nor ‘google’ in their UTMs, assign them to v1
 
-### `npm run build`
+### A/B Test purpose:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Users in variant v0 get the current version as is.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Users in variant v1 get an additional menu button to promote our new Pant product. The name of the menu button is “Our Pant“. Additionally, add a badge element with the word “NEW” to the new menu button.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Implementation:
 
-### `npm run eject`
+- You are free to structure the implementation however you prefer, using any frontend libraries, file structure, or component organization you deem necessary. Feel free to create new components or modify existing ones as needed.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- You may use any method for handling user state, session management, or UTM parameter retrieval. You can also store information using cookies, localStorage, sessionStorage, or any other form of browser storage that you find suitable.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- You should implement a system to randomly assign users into v0 or v1 based on the UTM parameters as described. This can be done using any algorithm or method of your choice.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- There are no restrictions on how you implement styling.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Testing is encouraged. You can write any tests you want to validate the bucket assignment logic or UI behavior.
 
-## Learn More
+## Example Cases
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Case 1: UTM contains ‘google’ but not ‘shopping’
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**UTM Parameter:** ?utm_source=google&utm_medium=cpc
 
-### Code Splitting
+**Expected Behavior:** Randomly assign the user to v0 or v1 with a 50% chance for each.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Case 2: UTM contains both ‘google’ and ‘shopping’
 
-### Analyzing the Bundle Size
+**UTM Parameter:** ?utm_source=google&utm_medium=shopping
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Expected Behavior:** User should be assigned to v0 due to the presence of ‘shopping’ in their UTM parameters.
 
-### Making a Progressive Web App
+### Case 3: UTM contains ‘shopping’ but not ‘google’
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**UTM Parameter:** ?utm_source=referral&utm_medium=shopping
 
-### Advanced Configuration
+**Expected Behavior:** User should be assigned to v0 because ‘shopping’ is present.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Case 4: UTM contains neither ‘google’ nor ‘shopping’
 
-### Deployment
+**UTM Parameter:** ?utm_source=facebook&utm_medium=cpc
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Expected Behavior:** User should be assigned to v1 because neither ‘google’ nor ‘shopping’ is present.
 
-### `npm run build` fails to minify
+### Case 5: UTM contains ‘google’ and additional parameters but no ‘shopping’
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**UTM Parameter:** ?utm_source=google&utm_medium=paid&utm_campaign=spring_sale
+
+**Expected Behavior:** Randomly assign the user to v0 or v1 with a 50% chance for each.
+
+### Case 6: UTM contains ‘shopping’ and additional parameters but no ‘google’
+**UTM Parameter:** ?utm_source=referral&utm_medium=shopping&utm_campaign=holiday_sale
+
+**Expected Behavior:** User should be assigned to v0 due to the presence of ‘shopping’.
