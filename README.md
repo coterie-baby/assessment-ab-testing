@@ -36,37 +36,26 @@ You are designing a system to bucket users into two testing categories, v0 and v
 
 ## Example Cases
 
-### Case 1: UTM contains ‘google’ but not ‘shopping’
+**Case 1:** UTM contains ‘google’ but not ‘shopping’ \
+UTM Parameter: ?utm_source=google&utm_medium=cpc \
+Expected Behavior: Randomly assign the user to v0 or v1 with a 50% chance for each.
 
-**UTM Parameter:** ?utm_source=google&utm_medium=cpc
+**Case 2:** UTM contains both ‘google’ and ‘shopping’ \
+UTM Parameter: ?utm_source=google&utm_medium=shopping \
+Expected Behavior: User should be assigned to v0 due to the presence of ‘shopping’ in their UTM parameters.
 
-**Expected Behavior:** Randomly assign the user to v0 or v1 with a 50% chance for each.
+**Case 3:** UTM contains ‘shopping’ but not ‘google’ \
+UTM Parameter: ?utm_source=referral&utm_medium=shopping \
+Expected Behavior: User should be assigned to v0 because ‘shopping’ is present.
 
-### Case 2: UTM contains both ‘google’ and ‘shopping’
+**Case 4:** UTM contains neither ‘google’ nor ‘shopping’ \
+UTM Parameter: ?utm_source=facebook&utm_medium=cpc \
+Expected Behavior: User should be assigned to v1 because neither ‘google’ nor ‘shopping’ is present.
 
-**UTM Parameter:** ?utm_source=google&utm_medium=shopping
+**Case 5:** UTM contains ‘google’ and additional parameters but no ‘shopping’ \
+UTM Parameter: ?utm_source=google&utm_medium=paid&utm_campaign=spring_sale \
+Expected Behavior: Randomly assign the user to v0 or v1 with a 50% chance for each.
 
-**Expected Behavior:** User should be assigned to v0 due to the presence of ‘shopping’ in their UTM parameters.
-
-### Case 3: UTM contains ‘shopping’ but not ‘google’
-
-**UTM Parameter:** ?utm_source=referral&utm_medium=shopping
-
-**Expected Behavior:** User should be assigned to v0 because ‘shopping’ is present.
-
-### Case 4: UTM contains neither ‘google’ nor ‘shopping’
-
-**UTM Parameter:** ?utm_source=facebook&utm_medium=cpc
-
-**Expected Behavior:** User should be assigned to v1 because neither ‘google’ nor ‘shopping’ is present.
-
-### Case 5: UTM contains ‘google’ and additional parameters but no ‘shopping’
-
-**UTM Parameter:** ?utm_source=google&utm_medium=paid&utm_campaign=spring_sale
-
-**Expected Behavior:** Randomly assign the user to v0 or v1 with a 50% chance for each.
-
-### Case 6: UTM contains ‘shopping’ and additional parameters but no ‘google’
-**UTM Parameter:** ?utm_source=referral&utm_medium=shopping&utm_campaign=holiday_sale
-
-**Expected Behavior:** User should be assigned to v0 due to the presence of ‘shopping’.
+**Case 6:** UTM contains ‘shopping’ and additional parameters but no ‘google’ \
+UTM Parameter: ?utm_source=referral&utm_medium=shopping&utm_> ampaign=holiday_sale \
+Expected Behavior: User should be assigned to v0 due to the presence of ‘shopping’.
