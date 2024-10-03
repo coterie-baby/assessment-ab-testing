@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
-
 import "./DiaperPage.scss";
 
+const products = [
+  { id: 1, name: "The Diaper Size 01" },
+  { id: 2, name: "The Diaper Size 02" },
+  { id: 3, name: "The Diaper Size 03" },
+];
+
 function DiaperPage() {
-  const products = useSelector((state) => state.product);
-  console.log(products);
   return (
     <div className="diaper-page">
       <h1>Our Diaper</h1>
