@@ -2,7 +2,7 @@
 
 ## Context
 
-You are designing a system to bucket users into two testing categories, v0 and v1, based on their UTM parameters. Your goal is to ensure that users are properly bucketed and see the correct number of menu buttons depending on their bucket.
+You are designing a system to bucket users into two testing categories, v0 and v1, based on their UTM parameters. Your goal is to ensure that users are properly bucketed and see the correct number of menu items depending on their bucket.
 
 ## Requirements:
 
@@ -16,15 +16,17 @@ You are designing a system to bucket users into two testing categories, v0 and v
 
 - Users in variant v0 get the current version as is.
 
-- Users in variant v1 get an additional menu button to promote our new Pant product. The name of the menu button is “Our Pant“. Additionally, add a badge element with the word “NEW” to the new menu button.
+- Users in variant v1 get an additional menu item to promote our new Pant product. The name of the menu item is “Our Pant“. Additionally, add a badge element with the word “NEW” to the new menu item.
 
 ### Implementation:
 
-- Step 1: Add the `Our Pant` button to the nav bar. Add the badge, and make sure it's aligned.
+- Step 1: Add the `Our Pant` menu item to the nav bar. Add the badge, and make sure it's aligned.
+Example: 
+![Our Pant Menu Item](image.png)
 
 - Step 2: Get the `utm_source` paramter from URL. Assign the A/B test variant to the user based on the rules described above, and store it in localStorage.
 
-- Step 3: Update the new button's visibility based on the assigned variant.
+- Step 3: Update the new menu item's visibility based on the assigned variant.
 
 ### Notes:
 
